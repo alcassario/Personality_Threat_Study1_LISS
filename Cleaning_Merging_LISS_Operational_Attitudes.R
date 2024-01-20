@@ -218,8 +218,8 @@ vars <- reduced %>% select(cp08a020:cp08a069, cp09b020:cp09b069,
                            gender = geslacht, age_t1 = leeftijd, 
                            wave12_cv_start = cv20l297, wave1_start = cv08a161, wave2_start = cv09b161, 
                            wave3_start = cv10c161, wave4_start = cv11d161, wave5_start = cv12e161, 
-                           wave6_start = cv13f161, wave7_start = cv14g161, wave8_starta = DatumB_deel1, 
-                           wave8_startb = DatumB_deela, wave9_start = cv17i161) # remember two groups for wave 8, 
+                           wave6_start = cv13f161, wave7_start = cv14g161, wave8_start = DatumB, 
+                           wave9_start = cv17i161) 
                           # after wave 8 all vars of interest are completed in same year 
 
 
@@ -287,7 +287,6 @@ no_labs <- remove_labels(rs_vars)
 no_labs$union_1_4 <- NA
 no_labs$union_2_4 <- NA
 options(max.print = 3000)
-variable.names(no_labs)
 
 dat <- reshape(no_labs, varying = list(income = c(752:765), imm_c = c(766:779), 
                                        eu = c(780:793), m_w_1 = c(794:807), 
@@ -306,16 +305,15 @@ dat <- reshape(no_labs, varying = list(income = c(752:765), imm_c = c(766:779),
                                        m_y_4 = c(1144:1157),   
                                        gender_1 = c(1184:1197), 
                                        gender_2 = c(1198:1211), gender_3 = c(1212:1225), 
-                                       gender_4 = c(1226:1239), union_1 = c(1158:1170,1528), 
-                                       union_2 = c(1171:1183, 1529)), 
+                                       gender_4 = c(1226:1239), union_1 = c(1158:1170,1527), 
+                                       union_2 = c(1171:1183, 1528)), 
                direction = "long", 
                times = 1:14, 
                timevar = "wave")
 
 length(unique(dat$Respondent_ID))
 length(unique(dat$id)) # this tracks 
-View(no_labs[,1116:1129])
-variable.names(dat)
+
 
 # writing into .rdata for scoring 
 saveRDS(dat, file = "LISS_for_scoring.rds")
