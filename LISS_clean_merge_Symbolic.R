@@ -47,7 +47,11 @@ vars <- reduced %>% select(cp08a020:cp08a069, cp09b020:cp09b069,
                            Left_Right_11 = cv19k101, Left_Right_12 = cv20l101, 
                            Left_Right_13 = cv21m101, Left_Right_14 = cv22n101,
                            Left_Right_15 = cv23o101,
-                           gender = geslacht, age_t1 = leeftijd, wave2_cv_date = cv20l293)
+                           gender = geslacht, age_t1 = leeftijd,  
+                           wave1_start = cv08a161, wave2_start = cv09b161, 
+                           wave3_start = cv10c161, wave4_start = cv11d161, wave5_start = cv12e161, 
+                           wave6_start = cv13f161, wave7_start = cv14g161, wave8_start = DatumB, 
+                           wave9_start = cv17i161)
 # remove extra objects
 rm(list = c("reduced", "LISS_list"))
 
@@ -99,8 +103,9 @@ rs_vars$n <- rs_vars %>% select(contains(c("028", "038_r", "033", "043", "048",
 
 
 # reshaping to long 
+variable.names(rs_vars)
 rs_vars <- rs_vars %>% select(Left_Right_1:Left_Right_15, o, c, e, a, n, Respondent_ID, 
-                              gender, age_t1, wave2_cv_date)
+                              gender, age_t1, wave1_start:wave9_start)
 
 long_liss <- tidyr::gather(rs_vars, wave, ideology, Left_Right_1:Left_Right_15)
 # warning is from diff variable types, but everything comes over fine 
