@@ -1,8 +1,9 @@
 # Personality_Threat_Study1_LISS
 Use this code to reproduce our analyses for Study 1 in 
 "Testing Theories of Threat Individual Differences and Ideology"
-**** Before starting *** 
-*** Download these files and save in a sensible location ***
+## **** Before starting *** ##
+## *** Download these files and save in a sensible location *** ##
+## ** Open this .RProj ** 
 1. gain access to LISS data from centerdata and download politics
 and personality .dta files from waves 1-15 (08-2023); save in same location as these 
 files
