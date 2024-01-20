@@ -19,8 +19,9 @@ dat <- dat %>% select(Respondent_ID, gender, age_t1, o, c, e, a, n, wave, income
                       marr_1_1, marr_2_1, marr_3_1, marr_4_1, marr_5_1, marr_6_1,
                       marr_7_1, m_y_1_1, m_y_2_1, m_y_3_1, m_y_4_1, gen_1_1, gen_2_1, gen_3_1,
                       gen_4_1, union_1_1, union_2_1, id, wave12_cv_start, wave1_start, wave2_start, 
-                      wave3_start, wave4_start, wave5_start, wave6_start, wave7_start, wave8_starta, 
-                      wave8_startb, wave9_start)
+                      wave3_start, wave4_start, wave5_start, wave6_start, wave7_start, wave8_start, 
+                      wave9_start)
+
 
 # scoring variables #
 # go through and redo these because missing forgotten mothers of young var with change. # 
