@@ -13,12 +13,6 @@ library(stringr)
 load("LISS_long_Cleaned.RData") 
 variable.names(dat)
 
-# cleaning up exact start date variable for wave 8
-dat$wave8_starta <- ifelse(dat$wave8_starta == "", NA, dat$wave8_starta)
-dat$wave8_startb <- ifelse(dat$wave8_startb == "", NA, dat$wave8_startb)
-
-dat$wave8_start <- ifelse(is.na(dat$wave8_starta) == TRUE & is.na(dat$wave8_startb) == FALSE, dat$wave8_startb, dat$wave8_starta)
-
 ### loading threat data ###
 homicide <- read.csv("WB_homicide_cleaned.csv")
 unemployment <- read.csv("WB_unemployment_cleaned.csv")
@@ -228,7 +222,7 @@ directions$p.value <- as.numeric(directions$p.value)
 # directionality 
 sum(directions$coef < 0 & directions$p.value < .05) # 9 lib sig 
 sum(directions$coef > 0 & directions$p.value < .05) # 19 con sig 
-sum(directions$p.value > .05) # 12 non sig + 1 symb 
+sum(directions$p.value > .05) # 12 non sig 
 
 
 # mean shifts for operational and symbolic coefs 
