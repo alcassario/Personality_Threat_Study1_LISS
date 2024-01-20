@@ -68,6 +68,7 @@ plot2 <- ggplot(mains, aes(x = n_effect)) +
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), fill = "grey90") +
   geom_point(aes(y = estimate, color = as.factor(Direction)), size = .5) +
   geom_hline(yintercept = 0) +
+  ylim(-.1, NA)+
   scale_color_manual(values = c("#FF0000", "#56B4E9", "#000000")) +
   facet_grid(grouping ~ ., scales = "free", space = "free") +
   labs(title = "Threat Main Effects",
@@ -101,8 +102,7 @@ mains$n <- ifelse(str_detect(mains$spec, "_n") == TRUE |
  
 mains$covid <- ifelse(str_detect(mains$spec, "covid") == TRUE, 1, 0)
 mains$homicide <- ifelse(str_detect(mains$spec, "homicide") == TRUE, 1, 0)
-mains$immigration <- ifelse(str_detect(mains$spec, "immigration") == TRUE & mains$Outcome != "immigration_ability", 1, 0)
-mains$immigration <- ifelse(str_detect(mains$spec, "immigration") == TRUE & mains$Outcome == "immigration_ability", 1, mains$immigration)
+mains$immigration <- ifelse(str_detect(mains$spec, "immigration") == TRUE & str_detect(mains$spec, "immigration_") == FALSE, 1, 0)
 mains$unemployment <- ifelse(str_detect(mains$spec, "unemployment") == TRUE, 1, 0)
 
 # ##### coding for interactions #####
@@ -122,8 +122,7 @@ interactions$n <- ifelse(str_detect(interactions$spec, "_n_") == TRUE |
 
 interactions$covid <- ifelse(str_detect(interactions$spec, "covid") == TRUE, 1, 0)
 interactions$homicide <- ifelse(str_detect(interactions$spec, "homicide") == TRUE, 1, 0)
-interactions$immigration <- ifelse(str_detect(interactions$spec, "immigration") == TRUE & interactions$Outcome != "immigration_ability", 1, 0)
-interactions$immigration <- ifelse(str_detect(interactions$spec, "immigration") == TRUE & interactions$Outcome == "immigration_ability", 1, interactions$immigration)
+interactions$immigration <- ifelse(str_detect(interactions$spec, "immigration") == TRUE & str_detect(interactions$spec, "immigration_") == FALSE, 1, 0)
 interactions$unemployment <- ifelse(str_detect(interactions$spec, "unemployment") == TRUE, 1, 0)
 
 
