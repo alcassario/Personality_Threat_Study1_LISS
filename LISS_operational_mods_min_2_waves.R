@@ -184,7 +184,7 @@ results_1 <- list()
 
 for(i in 1:length(vars)){
   results_1[[i]] <- lmer(unlist(dat[,vars[i]]) ~ wave + homicide + 
-                           immigration + unemployment + covid+ o + c + e + a + n + 
+                           immigration + unemployment + covid + o + c + e + a + n + 
                            (wave | id), data = dat, 
                          control=lmerControl(optimizer="bobyqa", optCtrl=list(maxfun=2e5)))
 }

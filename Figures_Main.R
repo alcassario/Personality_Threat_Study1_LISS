@@ -190,6 +190,7 @@ sum(open$estimate > 0 & open$p.value < .05) # 5 neg bias out of 44
 cons <- subset(plot_dat_interactions, plot_dat_interactions$term %>% stringr::str_detect("Conscientious") == TRUE)
 
 ### neg bias, neg and sig o and threat, pos and sig c and threat
+range(plot_dat_no_int$estimate)
 sum(open$estimate < 0 & open$p.value < .05) # 2
 sum(cons$estimate > 0 & open$p.value < .05) # 1
 # 3/88 consistent with neg bias 
@@ -205,5 +206,8 @@ sum(plot_dat_no_int$p.value > .05) # 14 non sig
 mean(plot_dat_no_int$estimate[plot_dat_no_int$estimate > 0 & plot_dat_no_int$p.value < .05]) # .03 cons
 mean(plot_dat_no_int$estimate[plot_dat_no_int$estimate < 0 & plot_dat_no_int$p.value < .05]) # -.02 lib 
 mean(plot_dat_no_int$estimate) # mean shift .007
+
+#### arrange results 
+plot_dat_no_int <- plot_dat_no_int %>% arrange(estimate)
 
 rm(list = ls())
