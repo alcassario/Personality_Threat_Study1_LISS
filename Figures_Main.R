@@ -184,10 +184,14 @@ plot2
 open <- subset(plot_dat_interactions, plot_dat_interactions$term %>% stringr::str_detect("Open") == TRUE)
 
 ### n sig and consistent with neg bias (pos and sig o by threat)
-sum(open$estimate > 0 & open$p.value < .05) # 5 neg bias out of 44
+sum(open$estimate > 0 & open$p.value < .05) # 5 threat constraint out of 44
+sum(open$estimate < 0 & open$p.value < .05) # 5 neg bias out of 44
+
 
 ### same proc for cons
 cons <- subset(plot_dat_interactions, plot_dat_interactions$term %>% stringr::str_detect("Conscientious") == TRUE)
+
+sum(cons$estimate > 0 & cons$p.value < .05) # 4 neg bias out of 44
 
 ### neg bias, neg and sig o and threat, pos and sig c and threat
 range(plot_dat_no_int$estimate)
