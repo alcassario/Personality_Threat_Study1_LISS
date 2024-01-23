@@ -185,7 +185,7 @@ open <- subset(plot_dat_interactions, plot_dat_interactions$term %>% stringr::st
 
 ### n sig and consistent with neg bias (pos and sig o by threat)
 sum(open$estimate > 0 & open$p.value < .05) # 5 threat constraint out of 44
-sum(open$estimate < 0 & open$p.value < .05) # 5 neg bias out of 44
+sum(open$estimate < 0 & open$p.value < .05) # 2 neg bias out of 44
 
 
 ### same proc for cons
