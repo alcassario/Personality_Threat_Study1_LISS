@@ -252,7 +252,7 @@ rs_vars <- cbind(vars, reversed)
 # writing dataset for personality reliabilities 
 saveRDS(rs_vars, file = "personality.RDS")
 
-# row means of big five 
+# row means of big five, personality averaged across waves 
 rs_vars$o <- rs_vars %>% select(contains(c("024", "029_r", "034", "039_r", "044", 
                                            "049_r", "054", "059", "064", "069"))) %>%
   rowMeans(na.rm = TRUE)
@@ -314,8 +314,76 @@ dat <- reshape(no_labs, varying = list(income = c(752:765), imm_c = c(766:779),
 length(unique(dat$Respondent_ID))
 length(unique(dat$id)) # this tracks 
 
+variable.names(dat)
+
+# adding wave specific personality for big 5 for review: 
+
+
+# create list of personality years to loop through 
+p_years <- c("cp08", "cp09", "cp10", "cp11", "cp12", "cp13", "cp14", "cp15", "cp17", "cp18", 
+             "cp19", "cp20", "cp21", "cp22", "cp23")
+
+agree <- c("024", "029_r", "034", "039_r", "044", 
+           "049_r", "054", "059", "064", "069")
+
+neur <- c("028", "038_r", "033", "043", "048", 
+          "053", "058", "063", "068", "023")
+
+cons <- c("027_r", "022", "032", "037_r", "042", 
+          "047_r", "052", "057_r", "062", "067")
+
+open <- c("024", "029_r", "034", "039_r", "044", 
+          "049_r", "054", "059", "064", "069")
+
+extra <- c("025_r", "035_r", "045_r", "055_r", "065_r", 
+           "020", "030", "040", "050", "060")
+
+# score traits 
+library(dplyr)
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(open)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "open")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(cons)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "cons")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(neur)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "neur")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(agree)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "agree")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(cons)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "cons")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(extra)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "extra")
+}
+
 
 # writing into .rdata for scoring 
-saveRDS(dat, file = "LISS_for_scoring.rds")
+saveRDS(dat, file = "LISS_for_scoring_non_aggregated_personality.rds")
 rm(list = ls())
 gc()
