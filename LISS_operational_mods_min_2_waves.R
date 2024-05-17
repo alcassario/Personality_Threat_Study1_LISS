@@ -153,7 +153,7 @@ dat$o <- dat$o - mean(dat$o, na.rm = TRUE)
 dat$c <- dat$c - mean(dat$c, na.rm = TRUE)
 dat$e <- dat$e - mean(dat$e, na.rm = TRUE)
 dat$a <- dat$a - mean(dat$a, na.rm = TRUE)
-
+dat$n <- dat$n - mean(dat$n, na.rm = TRUE)
 
 # writing file into multiverse data
 saveRDS(dat, "operational_for_multi.rds")
