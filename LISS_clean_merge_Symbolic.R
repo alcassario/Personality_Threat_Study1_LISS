@@ -134,8 +134,82 @@ long_liss$wave <- ifelse(long_liss$wave == "Left_Right_1", 1,
 
 long_liss$wave <- as.numeric(long_liss$wave)
 
+# add non-aggreaged personality
+
+
+# create list of personality years to loop through 
+p_years <- c("cp08", "cp09", "cp10", "cp11", "cp12", "cp13", "cp14", "cp15", "cp17", "cp18", 
+             "cp19", "cp20", "cp21", "cp22", "cp23")
+
+agree <- c("024", "029_r", "034", "039_r", "044", 
+           "049_r", "054", "059", "064", "069")
+
+neur <- c("028", "038_r", "033", "043", "048", 
+          "053", "058", "063", "068", "023")
+
+cons <- c("027_r", "022", "032", "037_r", "042", 
+          "047_r", "052", "057_r", "062", "067")
+
+open <- c("024", "029_r", "034", "039_r", "044", 
+          "049_r", "054", "059", "064", "069")
+
+extra <- c("025_r", "035_r", "045_r", "055_r", "065_r", 
+           "020", "030", "040", "050", "060")
+
+# score traits 
+# rename dataset, just so I can re-use code from operational script
+dat <- long_liss 
+
+# loops to score non-aggregated traits 
+library(dplyr)
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(open)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "open")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(cons)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "cons")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(neur)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "neur")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(agree)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "agree")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(cons)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "cons")
+}
+
+for(i in 1:length(p_years)){ 
+  temp <- dat %>% select(contains(p_years[i]) & contains(extra)) %>% rowMeans(na.rm = TRUE)
+  temp <- as.vector(temp)
+  dat <- cbind(dat, temp)
+  names(dat)[names(dat) == "temp"] <- paste0(p_years[i], "extra")
+}
+
+
+variable.names(dat)
+
+
 # writing into csv for use in modeling code 
-write.csv(long_liss, "LISS_merged_scored.csv")
+write.csv(dat, "LISS_merged_scored_non_aggregated_personality.csv")
 # this file can be used for demos 
 
 rm(list = ls())
